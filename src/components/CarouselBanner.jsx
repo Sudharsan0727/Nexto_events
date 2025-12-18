@@ -43,7 +43,7 @@ const CarouselBanner = () => {
     }, []);
 
     return (
-        <div className="w-full relative overflow-hidden h-[600px] md:h-[600Apx] flex items-center justify-center bg-white group hover:cursor-default">
+        <div className="w-full relative overflow-hidden min-h-[600px] md:h-[600px] flex items-center justify-center bg-white group hover:cursor-default py-12 md:py-0">
 
             {/* 1. Ambient Background Layer (Vibrant Blur without solid white side) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
@@ -64,7 +64,7 @@ const CarouselBanner = () => {
             </div>
 
             {/* 2. Main Layout Container */}
-            <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-12 z-20 h-full flex items-center justify-between">
+            <div className="relative w-full max-w-[1400px] mx-auto px-4 md:px-12 z-20 h-full flex items-center justify-between">
 
                 {/* LEFT ARROW (Absolute Positioning for Clean Layout) */}
                 <button
@@ -75,10 +75,10 @@ const CarouselBanner = () => {
                 </button>
 
                 {/* CENTER CONTENT GRID */}
-                <div key={currentSlide} className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-12 items-center h-full px-8 md:px-24">
+                <div key={currentSlide} className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center h-full px-2 md:px-24">
 
                     {/* Text Section (Left - Adjusted 7 columns) */}
-                    <div className="md:col-span-7 lg:col-span-7 flex flex-col items-start justify-center space-y-4 pr-4 animate-[swipeInText_1s_cubic-bezier(0.25,1,0.5,1)]">
+                    <div className="md:col-span-7 lg:col-span-7 flex flex-col items-center md:items-start justify-center space-y-4 md:pr-4 animate-[swipeInText_1s_cubic-bezier(0.25,1,0.5,1)] text-center md:text-left order-2 md:order-1">
 
                         <style>
                             {`
@@ -93,28 +93,28 @@ const CarouselBanner = () => {
                             `}
                         </style>
 
-                        <div className="text-base font-bold text-gray-900 uppercase tracking-widest opacity-80">
+                        <div className="text-sm md:text-base font-bold text-gray-900 uppercase tracking-widest opacity-80">
                             {events[currentSlide].date}
                         </div>
 
                         {/* Title: Size Increased */}
-                        <h1 className="text-[40px] md:text-[45px] lg:text-[55px] font-bold text-[#111] leading-[1.1] tracking-normal">
+                        <h1 className="text-[32px] md:text-[45px] lg:text-[55px] font-bold text-[#111] leading-[1.1] tracking-normal">
                             {events[currentSlide].title}
                         </h1>
 
-                        <div className="space-y-3 pt-2">
-                            <p className="text-xl md:text-2xl font-bold text-gray-800">
+                        <div className="space-y-2 md:space-y-3 pt-2">
+                            <p className="text-lg md:text-2xl font-bold text-gray-800">
                                 {events[currentSlide].venue}
                             </p>
-                            <p className="text-lg font-bold text-gray-600">
+                            <p className="text-base md:text-lg font-bold text-gray-600">
                                 {events[currentSlide].price}
                             </p>
                         </div>
 
-                        <div className="pt-8">
+                        <div className="pt-6 md:pt-8 w-full md:w-auto">
                             <button
                                 onClick={() => navigate(`/event/${events[currentSlide].id}`)}
-                                className="bg-[#111] text-white h-14 px-10 rounded-xl font-bold text-base tracking-wide hover:bg-black hover:scale-105 transition-all shadow-lg"
+                                className="bg-[#111] text-white h-12 md:h-14 px-8 md:px-10 rounded-xl font-bold text-sm md:text-base tracking-wide hover:bg-black hover:scale-105 transition-all shadow-lg w-full md:w-auto"
                             >
                                 Book tickets
                             </button>
@@ -122,8 +122,8 @@ const CarouselBanner = () => {
                     </div>
 
                     {/* Poster Section (Right - Increased Size 5 columns) */}
-                    <div className="md:col-span-5 lg:col-span-5 flex justify-center md:justify-end items-center relative animate-[swipeInPoster_1s_cubic-bezier(0.25,1,0.5,1)]">
-                        <div className="relative w-[340px] h-[480px] lg:w-[400px] lg:h-[500px] rounded-[24px] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.01]">
+                    <div className="md:col-span-5 lg:col-span-5 flex justify-center md:justify-end items-center relative animate-[swipeInPoster_1s_cubic-bezier(0.25,1,0.5,1)] order-1 md:order-2">
+                        <div className="relative w-[280px] xs:w-[300px] md:w-[340px] aspect-[3/4] md:h-[480px] rounded-[24px] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.01]">
                             <img
                                 src={events[currentSlide].poster}
                                 alt={events[currentSlide].title}
