@@ -68,12 +68,36 @@ const EventDetails = () => {
                     <div className="lg:col-span-2 space-y-12">
 
                         {/* Event Image */}
-                        <div className="h-[400px] md:h-[500px]">
+                        <div className="h-[280px] md:h-[500px] group relative">
                             <img
                                 src={event.detailsImage || event.image || event.poster}
                                 alt={event.title}
-                                className="w-full h-full object-cover rounded-[32px] shadow-2xl"
+                                className="w-full h-full object-cover rounded-[24px] md:rounded-[32px] shadow-2xl"
                             />
+                            {/* Mobile Category Badge Overlay */}
+                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full z-10 md:hidden">
+                                <p className="text-xs font-bold text-[#111] uppercase tracking-wider">{event.category}</p>
+                            </div>
+                        </div>
+
+                        {/* MOBILE ONLY: Title & Key Info */}
+                        <div className="md:hidden space-y-4">
+                            <h1 className="text-3xl font-black text-[#111] leading-tight tracking-tight">{event.title}</h1>
+
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-3 text-gray-700">
+                                    <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center shrink-0">
+                                        <Calendar size={16} className="text-orange-600" />
+                                    </div>
+                                    <p className="font-bold text-sm">{event.date} • {event.time || '4:00 PM'}</p>
+                                </div>
+                                <div className="flex items-center gap-3 text-gray-700">
+                                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                                        <MapPin size={16} className="text-blue-600" />
+                                    </div>
+                                    <p className="font-bold text-sm">{event.venue}</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* About Section */}
@@ -103,7 +127,7 @@ const EventDetails = () => {
                                     See all <span className="text-lg">›</span>
                                 </button>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
                                 <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow">
                                     <div className="bg-blue-50 p-2.5 rounded-lg text-blue-600"><Globe size={20} /></div>
                                     <div>
@@ -131,12 +155,12 @@ const EventDetails = () => {
                         {/* Artists Section */}
                         <section>
                             <h3 className="text-xl font-bold text-[#111] mb-10">Artist Lineup</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-x-12 md:gap-y-16">
                                 {[1, 2, 3, 4].map((i) => (
                                     <div key={i} className="group relative flex items-center gap-6 cursor-pointer">
-                                        <div className="relative w-32 h-32 shrink-0">
-                                            <div className="absolute inset-0 bg-[#111] rounded-2xl rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
-                                            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border border-gray-100">
+                                        <div className="relative w-full aspect-square md:w-32 md:h-32 shrink-0">
+                                            <div className="absolute inset-0 bg-[#111] rounded-2xl rotate-3 group-hover:rotate-6 transition-transform duration-500 hidden md:block"></div>
+                                            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md md:shadow-xl border border-gray-100">
                                                 <img
                                                     src={i === 1 ? artist1 : i === 2 ? artist2 : i === 3 ? artist3 : artist4}
                                                     alt="Artist"
@@ -179,8 +203,8 @@ const EventDetails = () => {
 
                     </div>
 
-                    {/* RIGHT: Details Card (Sticky 33%) */}
-                    <div className="lg:col-span-1 sticky top-24">
+                    {/* RIGHT: Details Card (Sticky 33%) - DESKTOP ONLY */}
+                    <div className="hidden lg:block lg:col-span-1 sticky top-24">
                         <div className="relative group">
 
                             {/* AMBIENT SOFT GLOW BEHIND CARD */}
@@ -259,6 +283,20 @@ const EventDetails = () => {
             </div>
 
             <Footer />
+
+            {/* --- MOBILE/TABLET FIXED BOTTOM BAR --- */}
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 px-6 lg:hidden z-50 safe-area-bottom flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+                <div>
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Price</p>
+                    <p className="text-2xl font-black text-[#111] tracking-tight">{event.price.split(' ')[0]}</p>
+                </div>
+                <button
+                    onClick={() => navigate(`/event/${id}/book`)}
+                    className="bg-[#111] text-white px-8 h-12 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[#ff084e] shadow-lg shadow-black/20 flex items-center gap-2"
+                >
+                    <Ticket size={18} /> Book Now
+                </button>
+            </div>
 
             {/* --- EVENT GUIDE MODAL --- */}
             {isGuideModalOpen && (

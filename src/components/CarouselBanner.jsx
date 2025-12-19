@@ -43,7 +43,7 @@ const CarouselBanner = () => {
     }, []);
 
     return (
-        <div className="w-full relative overflow-hidden min-h-[600px] md:h-[600px] flex items-center justify-center bg-white group hover:cursor-default py-12 md:py-0">
+        <div className="w-full relative overflow-hidden min-h-[550px] lg:h-[600px] flex items-center justify-center bg-white group hover:cursor-default py-12 lg:py-0">
 
             {/* 1. Ambient Background Layer (Vibrant Blur without solid white side) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
@@ -74,11 +74,11 @@ const CarouselBanner = () => {
                     <ChevronLeft size={28} />
                 </button>
 
-                {/* CENTER CONTENT GRID */}
-                <div key={currentSlide} className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center h-full px-2 md:px-24">
+                {/* CENTER CONTENT GRID (Tablet Friendly: Stacked until LG) */}
+                <div key={currentSlide} className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center h-full px-2 lg:px-16">
 
                     {/* Text Section (Left - Adjusted 7 columns) */}
-                    <div className="md:col-span-7 lg:col-span-7 flex flex-col items-center md:items-start justify-center space-y-4 md:pr-4 animate-[swipeInText_1s_cubic-bezier(0.25,1,0.5,1)] text-center md:text-left order-2 md:order-1">
+                    <div className="lg:col-span-7 flex flex-col items-center lg:items-start justify-center space-y-4 lg:pr-4 animate-[swipeInText_1s_cubic-bezier(0.25,1,0.5,1)] text-center lg:text-left order-2 lg:order-1">
 
                         <style>
                             {`
@@ -98,7 +98,7 @@ const CarouselBanner = () => {
                         </div>
 
                         {/* Title: Size Increased */}
-                        <h1 className="text-[32px] md:text-[45px] lg:text-[55px] font-bold text-[#111] leading-[1.1] tracking-normal">
+                        <h1 className="text-3xl md:text-[45px] lg:text-[55px] font-bold text-[#111] leading-[1.1] tracking-normal max-w-full break-words">
                             {events[currentSlide].title}
                         </h1>
 
@@ -122,8 +122,8 @@ const CarouselBanner = () => {
                     </div>
 
                     {/* Poster Section (Right - Increased Size 5 columns) */}
-                    <div className="md:col-span-5 lg:col-span-5 flex justify-center md:justify-end items-center relative animate-[swipeInPoster_1s_cubic-bezier(0.25,1,0.5,1)] order-1 md:order-2">
-                        <div className="relative w-[280px] xs:w-[300px] md:w-[340px] aspect-[3/4] md:h-[480px] rounded-[24px] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.01]">
+                    <div className="lg:col-span-5 flex justify-center lg:justify-end items-center relative animate-[swipeInPoster_1s_cubic-bezier(0.25,1,0.5,1)] order-1 lg:order-2">
+                        <div className="relative w-[280px] sm:w-[320px] md:w-[360px] aspect-[3/4] lg:h-[480px] rounded-[24px] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.01]">
                             <img
                                 src={events[currentSlide].poster}
                                 alt={events[currentSlide].title}
@@ -147,8 +147,8 @@ const CarouselBanner = () => {
             </div>
 
             {/* Mobile Dots */}
-            {/* Pagination Dots (Universal) */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30">
+            {/* Pagination Dots (Universal - Positioned lower for tablet stack) */}
+            <div className="absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30">
                 {events.map((_, index) => (
                     <button
                         key={index}

@@ -147,15 +147,15 @@ const BookingPage = () => {
                             {/* --- SEATING LAYOUT (Stacked Blocks) --- */}
                             <div className="max-w-3xl mx-auto relative flex flex-col items-center gap-4">
 
-                                {/* ROW 1: VIP (4 Blocks Row) */}
-                                <div className="w-full flex justify-center gap-4">
+                                {/* ROW 1: VIP (Horizontal Scroll on Mobile, Grid on Tablet) */}
+                                <div className="w-full overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:overflow-visible scrollbar-hide flex justify-start md:justify-center gap-4 snap-x">
                                     {[1, 2, 3, 4].map((i) => (
                                         <div
                                             key={`vip-${i}`}
                                             onClick={() => updateQuantity('vip', 1)}
-                                            className={`flex-1 h-28 bg-amber-50 rounded-2xl border-2 ${selectedTickets['vip'] ? 'border-amber-500 bg-amber-100' : 'border-amber-200 border-dashed'} flex flex-col items-center justify-center cursor-pointer hover:-translate-y-1 transition-all active:scale-95 group shadow-sm hover:shadow-lg`}
+                                            className={`min-w-[100px] md:min-w-0 flex-1 h-24 md:h-28 bg-amber-50 rounded-2xl border-2 ${selectedTickets['vip'] ? 'border-amber-500 bg-amber-100' : 'border-amber-200 border-dashed'} flex flex-col items-center justify-center cursor-pointer hover:-translate-y-1 transition-all active:scale-95 group shadow-sm hover:shadow-lg snap-start`}
                                         >
-                                            <Crown size={20} className="text-amber-500 mb-1 group-hover:scale-110 transition-transform" />
+                                            <Crown size={18} className="text-amber-500 mb-1 group-hover:scale-110 transition-transform" />
                                             <span className="text-[10px] font-black uppercase text-amber-700 tracking-wider">VIP {i}</span>
                                             <span className="text-sm font-bold text-gray-900">₹5000</span>
                                             <span className="text-[9px] font-bold text-amber-600 mt-1">{Math.floor(getAvailability('vip') / 4)} left</span>
@@ -219,8 +219,8 @@ const BookingPage = () => {
                         </div>
                     </div>
 
-                    {/* Right: Summary Order Card */}
-                    <div className="lg:col-span-4">
+                    {/* Right: Summary Order Card - Hidden on Mobile, Fixed Bar used instead */}
+                    <div className="hidden lg:block lg:col-span-4">
                         <div className="sticky top-24">
                             <div className="bg-white rounded-[32px] p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-100">
                                 <h3 className="text-xl font-black text-gray-900 mb-6 font-heading">Your Booking</h3>
@@ -316,6 +316,28 @@ const BookingPage = () => {
 
                 </div>
             </main>
+
+            {/* --- MOBILE/TABLET FIXED CHECKOUT BAR --- */}
+            <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 px-6 lg:hidden z-50 safe-area-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transition-transform duration-300 ${totalAmount > 0 ? 'translate-y-0' : 'translate-y-full'}`}>
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Total</p>
+                        <p className="text-2xl font-black text-[#111] tracking-tight">₹{totalAmount > 0 ? totalAmount + 49 + Math.round(totalAmount * 0.18) : 0}</p>
+                    </div>
+                    <button
+                        onClick={() => navigate('/checkout', {
+                            state: {
+                                selectedTickets,
+                                totalAmount,
+                                event
+                            }
+                        })}
+                        className="flex-1 bg-[#111] text-white h-12 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[#ff084e] shadow-lg shadow-black/20 flex items-center justify-center gap-2"
+                    >
+                        Checkout <ChevronRight size={18} />
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };

@@ -169,7 +169,7 @@ const CategoryCarousel = () => {
                 <div
                     ref={scrollContainerRef}
                     onScroll={checkScroll}
-                    className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x px-1"
+                    className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x px-1 mx-12"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {categories.map((cat, index) => (

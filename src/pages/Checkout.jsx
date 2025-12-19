@@ -63,6 +63,20 @@ const Checkout = () => {
 
             {/* FLOATING CONTENT CONTAINER */}
             <main className="max-w-6xl mx-auto px-4 -mt-24 relative z-10">
+
+                {/* MOBILE TOP TIMER - REFINED PILL */}
+                <div className="lg:hidden flex justify-center mb-6">
+                    <div className="bg-white text-gray-900 px-5 py-2.5 rounded-full shadow-lg shadow-black/20 border border-gray-100 flex items-center gap-3 w-fit">
+                        <div className="flex items-center gap-2">
+                            <Clock size={14} className="text-red-500 animate-pulse" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Time Remaining</span>
+                        </div>
+                        <span className="font-mono font-black text-xl text-[#111] tracking-wider min-w-[60px] text-center">
+                            {formatTime(timeLeft)}
+                        </span>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     {/* LEFT: MAIN FORM */}
@@ -166,8 +180,8 @@ const Checkout = () => {
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-4">
 
-                            {/* TIMER CARD */}
-                            <div className="bg-red-50 border border-red-100 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                            {/* TIMER CARD (Desktop Only) */}
+                            <div className="hidden lg:flex bg-red-50 border border-red-100 rounded-xl p-4 items-center justify-between shadow-sm">
                                 <div className="flex items-center gap-2">
                                     <Clock size={16} className="text-red-500 animate-pulse" />
                                     <span className="text-xs font-bold uppercase tracking-wider text-red-800">Time Remaining</span>
@@ -229,8 +243,8 @@ const Checkout = () => {
                                         </div>
                                     </div>
 
-                                    {/* Pay Button */}
-                                    <button className="w-full py-4 bg-gray-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-gray-300 transition-all hover:scale-[1.02] hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2 group">
+                                    {/* Pay Button (Desktop Only) */}
+                                    <button className="hidden lg:flex w-full py-4 bg-gray-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-gray-300 transition-all hover:scale-[1.02] hover:-translate-y-1 active:scale-95 items-center justify-center gap-2 group">
                                         Pay ₹{finalTotal} <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </button>
 
@@ -245,7 +259,20 @@ const Checkout = () => {
 
                 </div>
             </main>
-        </div>
+
+            {/* --- MOBILE/TABLET FIXED PAY BAR --- */}
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 px-6 lg:hidden z-50 safe-area-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Total to Pay</p>
+                        <p className="text-2xl font-black text-pink-600 tracking-tight">₹{finalTotal}</p>
+                    </div>
+                    <button className="flex-1 bg-[#111] text-white h-12 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[#ff084e] shadow-lg shadow-black/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                        Pay Securely <ShieldCheck size={18} />
+                    </button>
+                </div>
+            </div >
+        </div >
     );
 };
 
