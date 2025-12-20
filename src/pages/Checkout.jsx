@@ -13,8 +13,8 @@ const Checkout = () => {
     const navigate = useNavigate();
     const { selectedTickets, totalAmount, event } = location.state || {};
 
-    // Auto-focus state or simple form state
-    const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+    // Auto-focus state or simple form state - Pre-filled for Testing
+    const [formData, setFormData] = useState({ name: 'Test User', email: 'test@example.com', phone: '9999999999' });
     const [paymentMethod, setPaymentMethod] = useState('card');
     const [timeLeft, setTimeLeft] = useState(600);
 
@@ -32,6 +32,46 @@ const Checkout = () => {
     const platformFee = 49;
     const gst = Math.round(totalAmount * 0.18);
     const finalTotal = totalAmount + platformFee + gst;
+
+    const handlePayment = async () => {
+        if (!formData.name || !formData.email || !formData.phone) {
+            alert("Please fill in all contact details");
+            return;
+        }
+
+        try {
+            // Generate a unique transaction ID
+            const transactionId = "T" + Date.now();
+
+            // Call to our local backend
+            // NOTE: You must run 'node server/server.js' in a separate terminal for this to work
+            const response = await fetch('http://localhost:5000/api/payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    mobile: formData.phone,
+                    amount: finalTotal, // Amount in Rupees
+                    transactionId: transactionId
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.url) {
+                // Redirect user to PhonePe
+                window.location.href = data.url;
+            } else {
+                alert("Failed to initiate payment. Please try again.");
+            }
+
+        } catch (error) {
+            console.error("Payment Error:", error);
+            alert("Payment server is not running. Please run 'node server/server.js'");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 font-sans pb-20">
@@ -96,6 +136,8 @@ const Checkout = () => {
                                         <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-pink-500 transition-colors" size={18} />
                                         <input
                                             type="text"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 p-4 transition-all focus:bg-white font-medium"
                                             placeholder="Enter your name"
                                         />
@@ -107,6 +149,8 @@ const Checkout = () => {
                                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-pink-500 transition-colors" size={18} />
                                         <input
                                             type="tel"
+                                            value={formData.phone}
+                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                             className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 p-4 transition-all focus:bg-white font-medium"
                                             placeholder="Enter phone number"
                                         />
@@ -118,6 +162,8 @@ const Checkout = () => {
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-pink-500 transition-colors" size={18} />
                                         <input
                                             type="email"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                             className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 p-4 transition-all focus:bg-white font-medium"
                                             placeholder="name@example.com"
                                         />
@@ -152,7 +198,7 @@ const Checkout = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="radio" name="payment" className="hidden" onChange={() => setPaymentMethod('card')} />
+                                    <input type="radio" name="payment" className="hidden" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} />
                                 </label>
 
                                 {/* Option 2: UPI */}
@@ -169,7 +215,7 @@ const Checkout = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="radio" name="payment" className="hidden" onChange={() => setPaymentMethod('upi')} />
+                                    <input type="radio" name="payment" className="hidden" checked={paymentMethod === 'upi'} onChange={() => setPaymentMethod('upi')} />
                                 </label>
                             </div>
                         </div>
@@ -244,7 +290,9 @@ const Checkout = () => {
                                     </div>
 
                                     {/* Pay Button (Desktop Only) */}
-                                    <button className="hidden lg:flex w-full py-4 bg-gray-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-gray-300 transition-all hover:scale-[1.02] hover:-translate-y-1 active:scale-95 items-center justify-center gap-2 group">
+                                    <button
+                                        onClick={handlePayment}
+                                        className="hidden lg:flex w-full py-4 bg-gray-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-gray-300 transition-all hover:scale-[1.02] hover:-translate-y-1 active:scale-95 items-center justify-center gap-2 group">
                                         Pay ₹{finalTotal} <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </button>
 
@@ -267,7 +315,9 @@ const Checkout = () => {
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Total to Pay</p>
                         <p className="text-2xl font-black text-pink-600 tracking-tight">₹{finalTotal}</p>
                     </div>
-                    <button className="flex-1 bg-[#111] text-white h-12 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[#ff084e] shadow-lg shadow-black/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                    <button
+                        onClick={handlePayment}
+                        className="flex-1 bg-[#111] text-white h-12 rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[#ff084e] shadow-lg shadow-black/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
                         Pay Securely <ShieldCheck size={18} />
                     </button>
                 </div>
@@ -277,3 +327,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+

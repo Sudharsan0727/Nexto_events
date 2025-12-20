@@ -1,106 +1,67 @@
 
 import React from 'react';
-import { Facebook, Twitter, Instagram, Youtube, Apple, Smartphone } from 'lucide-react';
-import logo from '../assets/nexto-logo.png';
+import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import logo from '../assets/chennai-media-logo.png';
 
 const Footer = () => {
     return (
-        <footer className="relative mt-24 bg-white/70 backdrop-blur-3xl border-t border-white/60 overflow-hidden">
+        <footer className="relative mt-24 bg-white/70 backdrop-blur-xl border-t border-white/40 overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.03)]">
+            {/* Ambient Glass Gradients - crucial for the effect to be visible */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] translate-y-1/2 pointer-events-none"></div>
 
-            {/* Ambient Glass Blobs */}
-            <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-[#074faf]/5 rounded-full blur-[120px] -translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
-            <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+            <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-20">
 
-            <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
+                {/* Top Section */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-10 mb-12">
 
-                <div className="flex flex-col lg:flex-row gap-16 mb-20">
-
-                    {/* Left: App Promo Section */}
-                    <div className="lg:w-1/3">
-                        <div className="flex items-center gap-2 mb-6">
-                            <div className="w-10 h-10 bg-white/50 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm border border-white/50">
-                                <img src={logo} alt="N" className="w-6 h-6 object-contain" />
-                            </div>
-                            <span className="font-bold text-xl tracking-tight text-gray-900">Nexto Events</span>
-                        </div>
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                            Experience the best events on the go.
-                        </h2>
-                        <p className="text-gray-500 mb-8 max-w-sm">
-                            Download our award-winning app to book tickets, manage RSVPs, and discover new experiences anywhere, anytime.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="flex items-center gap-3 bg-gray-900/90 text-white px-5 py-3 rounded-2xl hover:bg-black hover:scale-105 transition-all shadow-xl shadow-gray-200 backdrop-blur-md">
-                                <Apple size={24} />
-                                <div className="text-left">
-                                    <p className="text-[10px] font-medium uppercase tracking-wider opacity-80">Download on the</p>
-                                    <p className="text-sm font-bold leading-none">App Store</p>
-                                </div>
-                            </button>
-                            <button className="flex items-center gap-3 bg-white/50 text-gray-900 px-5 py-3 rounded-2xl hover:bg-white transition-all shadow-lg shadow-gray-100 border border-white/60 backdrop-blur-md">
-                                <Smartphone size={24} />
-                                <div className="text-left">
-                                    <p className="text-[10px] font-bold uppercase tracking-wider opacity-60">Get it on</p>
-                                    <p className="text-sm font-bold leading-none">Google Play</p>
-                                </div>
-                            </button>
-                        </div>
+                    {/* Logo Section */}
+                    <div className="flex items-center">
+                        <img
+                            src={logo}
+                            alt="Chennai Media"
+                            className="h-12 object-contain"
+                        />
                     </div>
 
-                    {/* Right: Links Grid */}
-                    <div className="lg:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div>
-                            <h4 className="font-bold text-gray-900 mb-6">Discovery</h4>
-                            <ul className="space-y-4 text-sm font-medium text-gray-500">
-                                {['Concerts', 'Festivals', 'Workshops', 'Sports', 'Virtual'].map(item => (
-                                    <li key={item}><a href="#" className="hover:text-[#074faf] transition-colors">{item}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-gray-900 mb-6">Organizers</h4>
-                            <ul className="space-y-4 text-sm font-medium text-gray-500">
-                                {['Sell Tickets', 'Event Manager', 'Check-in App', 'Pricing', 'Resources'].map(item => (
-                                    <li key={item}><a href="#" className="hover:text-[#074faf] transition-colors">{item}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-gray-900 mb-6">Company</h4>
-                            <ul className="space-y-4 text-sm font-medium text-gray-500">
-                                {['About Us', 'Careers', 'Press', 'Blog', 'Contact'].map(item => (
-                                    <li key={item}><a href="#" className="hover:text-[#074faf] transition-colors">{item}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-gray-900 mb-6">Support</h4>
-                            <ul className="space-y-4 text-sm font-medium text-gray-500">
-                                {['Help Center', 'Terms', 'Privacy', 'Cookies', 'Sitemap'].map(item => (
-                                    <li key={item}><a href="#" className="hover:text-[#074faf] transition-colors">{item}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
+                    {/* Navigation Links */}
+                    <nav className="flex flex-wrap justify-center gap-8">
+                        {['Terms & Conditions', 'Privacy Policy', 'Contact Us', 'List your events'].map((link) => (
+                            <a
+                                key={link}
+                                href="#"
+                                className="text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors"
+                            >
+                                {link}
+                            </a>
+                        ))}
+                    </nav>
+
+                    {/* QR Code Section */}
 
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-gray-200/60 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-sm font-medium text-gray-500 text-center md:text-left">
-                        © 2025 Nexto Events. Powered by <a href="https://nextodigital.in" className="text-[#074faf] hover:underline font-bold">Nexto Digital</a>
+                {/* Divider */}
+                <div className="w-full h-px bg-gray-200 mb-8"></div>
+
+                {/* Bottom Section */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-xs text-gray-500 text-center md:text-left max-w-2xl leading-relaxed">
+                        By accessing this page, you confirm that you have read, understood, and agreed to our Terms of Service, Cookie Policy, Privacy Policy, and Content Guidelines. All rights reserved.
                     </p>
 
                     <div className="flex gap-4">
                         {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
-                            <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/60 flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#074faf] transition-all duration-300 shadow-sm border border-white/50">
-                                <Icon size={18} />
+                            <a
+                                key={i}
+                                href="#"
+                                className="text-gray-400 hover:text-gray-900 transition-colors"
+                            >
+                                <Icon size={20} />
                             </a>
                         ))}
                     </div>
                 </div>
-
             </div>
         </footer>
     );

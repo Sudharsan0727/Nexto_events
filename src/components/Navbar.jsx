@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Menu, X, Globe, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/nexto-logo.png';
+import logo from '../assets/chennai-media-logo.png';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,8 +14,7 @@ const Navbar = () => {
 
                         {/* Brand */}
                         <Link to="/" className="flex items-center gap-2 z-20">
-                            <img src={logo} alt="Nexto Events Logo" className="w-10 h-10 object-contain" />
-                            <span className="font-bold text-xl tracking-tight text-gray-900">Nexto Events</span>
+                            <img src={logo} alt="Chennai Media" className="h-10 object-contain" />
                         </Link>
 
                         {/* Centered Search Pill */}
@@ -40,17 +39,7 @@ const Navbar = () => {
                                 <Link to="/" className="text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">Experiences</Link>
                             </nav>
 
-                            <div className="h-4 w-px bg-gray-200"></div>
 
-                            <div className="flex items-center gap-3">
-                                <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
-                                    <Globe size={20} />
-                                </button>
-                                <button className="flex items-center gap-2 border border-gray-200 rounded-full px-3 py-1.5 hover:shadow-md transition-all">
-                                    <Menu size={18} className="text-gray-500" />
-                                    <UserCircle size={24} className="text-gray-400" />
-                                </button>
-                            </div>
                         </div>
 
                         {/* Mobile Toggle */}

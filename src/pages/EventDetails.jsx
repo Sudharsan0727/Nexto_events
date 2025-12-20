@@ -155,10 +155,10 @@ const EventDetails = () => {
                         {/* Artists Section */}
                         <section>
                             <h3 className="text-xl font-bold text-[#111] mb-10">Artist Lineup</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-x-12 md:gap-y-16">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-x-12 md:gap-y-16">
                                 {[1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="group relative flex items-center gap-6 cursor-pointer">
-                                        <div className="relative w-full aspect-square md:w-32 md:h-32 shrink-0">
+                                    <div key={i} className="group relative flex items-center gap-4 cursor-pointer">
+                                        <div className="relative w-20 h-20 md:w-32 md:h-32 shrink-0">
                                             <div className="absolute inset-0 bg-[#111] rounded-2xl rotate-3 group-hover:rotate-6 transition-transform duration-500 hidden md:block"></div>
                                             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md md:shadow-xl border border-gray-100">
                                                 <img
@@ -169,11 +169,11 @@ const EventDetails = () => {
                                             </div>
                                         </div>
                                         <div className="relative z-10 flex-1">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-                                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em]">Performer</p>
+                                            <div className="flex items-center gap-2 mb-1 md:mb-2">
+                                                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-blue-600"></div>
+                                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] md:tracking-[0.3em]">Performer</p>
                                             </div>
-                                            <h4 className="text-2xl font-bold text-[#111] tracking-tight group-hover:translate-x-2 transition-transform duration-300">
+                                            <h4 className="text-lg md:text-2xl font-bold text-[#111] tracking-tight group-hover:translate-x-2 transition-transform duration-300">
                                                 {i === 1 ? 'Hiphop Tamizha' : 'Artist Name ' + i}
                                             </h4>
                                         </div>
